@@ -10,7 +10,8 @@ import { IChangePassword, ILoginResponse, ILoginUser } from './auth.interface';
 const loginUser = async (
    payload: ILoginUser
 ): Promise<ILoginResponse | null> => {
-   const { email, password } = payload;
+   const email = payload?.email?.trim().toLowerCase();
+   const password = payload?.password;
 
    const isUserExist = await User.findOne({ email }, { password: 1, role: 1 });
 

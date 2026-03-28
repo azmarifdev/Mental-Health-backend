@@ -8,6 +8,10 @@ export default {
    port: process.env.PORT,
    database_url: process.env.DATABASE_URL,
    bcrypt_salt_rounds: process.env.BCRYPT_SALT_ROUNDS,
+   gemini: {
+      api_key: process.env.GEMINI_API_KEY,
+      model: process.env.GEMINI_MODEL || 'gemini-2.5-flash',
+   },
    jwt: {
       secret_token: process.env.JWT_SECKRET_TOKEN,
       secret_expires: process.env.JWT_EXPIRE_IN,
