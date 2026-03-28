@@ -4,25 +4,40 @@ import cors from 'cors';
 import { globalErrorHandler } from './app/middleware/globalErrorHandler';
 import routes from './app/routes';
 import cookieParser from 'cookie-parser';
+import config from './config';
 
 const app: Application = express();
+
+const defaultOrigins = [
+   'http://localhost:3000',
+   'http://localhost:3001',
+   'http://localhost:5173',
+];
+
+const allowedOrigins = (
+   config.frontend_url
+      ? config.frontend_url.split(',').map(origin => origin.trim())
+      : defaultOrigins
+).filter(Boolean);
 
 // cors
 app.use(
    cors({
-      origin: [
-         'http://localhost:3000',
-         'http://localhost:3001',
-         'http://localhost:5173',
-      ],
+      origin: (origin, callback) => {
+         // Allow non-browser/server-to-server requests.
+         if (!origin) {
+            return callback(null, true);
+         }
+
+         if (allowedOrigins.includes(origin)) {
+            return callback(null, true);
+         }
+
+         return callback(new Error(`CORS blocked for origin: ${origin}`));
+      },
       credentials: true,
    })
 );
-
-app.use((req, res, next) => {
-   res.header({ 'Access-Control-Allow-Origin': '*' });
-   next();
-});
 // cockie perser
 app.use(cookieParser());
 

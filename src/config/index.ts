@@ -4,9 +4,10 @@ import path from 'path';
 dotenv.config({ path: path.join(process.cwd(), '.env') });
 
 export default {
-   env: process.env.NODE_DEV,
+   env: process.env.NODE_ENV || process.env.NODE_DEV || 'development',
    port: process.env.PORT,
    database_url: process.env.DATABASE_URL,
+   frontend_url: process.env.FRONTEND_URL,
    bcrypt_salt_rounds: process.env.BCRYPT_SALT_ROUNDS,
    gemini: {
       api_key: process.env.GEMINI_API_KEY,

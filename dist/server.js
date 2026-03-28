@@ -12,9 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
 const app_1 = __importDefault(require("./app"));
 const index_1 = __importDefault(require("./config/index"));
+const connectDatabase_1 = __importDefault(require("./shared/connectDatabase"));
 process.on('uncaughtException', error => {
     // errorlogger.error(error);
     console.log(error);
@@ -24,7 +24,7 @@ let server;
 function connection() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield mongoose_1.default.connect(index_1.default.database_url);
+            yield (0, connectDatabase_1.default)();
             console.log('DB is connected succesfully ....!!');
             server = app_1.default.listen(index_1.default.port, () => {
                 console.log(`Application is listening on port ${index_1.default.port}`);

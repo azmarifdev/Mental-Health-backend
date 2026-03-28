@@ -1,7 +1,7 @@
 import { Server } from 'http';
-import mongoose from 'mongoose';
 import app from './app';
 import config from './config/index';
+import connectDatabase from './shared/connectDatabase';
 
 process.on('uncaughtException', error => {
    // errorlogger.error(error);
@@ -13,7 +13,7 @@ let server: Server;
 
 async function connection() {
    try {
-      await mongoose.connect(config.database_url as string);
+      await connectDatabase();
       console.log('DB is connected succesfully ....!!');
 
       server = app.listen(config.port, () => {
