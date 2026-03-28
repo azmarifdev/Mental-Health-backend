@@ -4,8 +4,8 @@
    "description": "mental-health-and-wellbeing",
    "main": "src/server.ts",
    "scripts": {
-      "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-      "start": "node dist/server.js",
+      "dev": "ts-node-dev --respawn --transpile-only src/bootstrap.ts",
+      "start": "node dist/bootstrap.js",
       "build": "tsc",
       "lint:check": "eslint --ignore-path .eslintignore --ext .js,.ts .",
       "lint:fix": "eslint --fix",
